@@ -1,0 +1,50 @@
+body {
+	font-family: Verdana, Geneva, sans-serif;
+	color: #313131;
+	background: #fcfaf2;
+	line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+}
+
+h1 {
+	font-size: 32px;
+	letter-spacing: -1px;
+}
+
+h5 {
+	font-size: 10px;
+	line-height: 1.2;
+	text-align: center;
+}
+
+p {
+	color: #505050;
+}
+
+hr {
+	border-bottom: none;
+	border-top: 5px solid #313131;
+}
+
+.painting {
+	margin-top: 20px;
+}
+
+header {
+	margin-top: 40px;
+}
+
+section {
+	margin-top: 100px;
+}
+
+.ref, .fig {
+	color: #aba9a3;
+}
+
+.figt {
+	display: none;
+}
