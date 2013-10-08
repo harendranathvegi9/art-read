@@ -14,28 +14,48 @@ $(function() {
 		activeID = null;
 	}
 
-	$('.figt').hover(function(){
+	$('.figt').hover(function(e){
 		$(document).off('mousemove');
+
+		function scale(percent) {
+			var SHIFT = 320;
+			var move = percent * SHIFT;
+			$('article').css('margin-left', Math.floor(20 - move)).css('opacity', 1-.8*percent);
+			$('aside').css('width', Math.floor(380+move));
+		}
+
+		$(document).mousemove($.proxy(function(e){
+			var $this = $(this),
+			parentOffset = $(this).parent().offset(),
+			x = e.pageX - parentOffset.left,
+			width = $this.width(),
+			percent = x/width;
+			scale(percent);
+		}, this));
+
 	}, function(){
+
+		$(document).off('mousemove');
+		
+
 		var $this = $(this),
 			id = $this.data('id');
 		fadeOut(id);
+		$('aside').animate({width: '380px'});
+		$('article').animate({'margin-left': '20px', opacity: 1});		
+		
 	});
 
 	$('.fig').hover(function(e) {
 		var $this = $(this),
 			id = $this.data('id');
-			console.log(id);
 
 		$(document).off('mousemove');
 
-		if (id !== activeID) fadeOut(id);
-
+		if (id !== activeID) fadeOut(activeID);
 		
 		$.data(this, "timer", setTimeout($.proxy(function() {
 			fadeIn(id);
-			console.log('fading in!');
-			console.log(id);
   		}, this), 500));
 
 	}, function(e){
