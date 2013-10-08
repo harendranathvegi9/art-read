@@ -97,7 +97,6 @@ $(function() {
 		if (id !== activeID) fadeOut(activeID);
 		
 		$.data(this, "timer", setTimeout($.proxy(function() {
-			console.log('here?');
 			fadeIn(id);
   		}, this), 500));
 
