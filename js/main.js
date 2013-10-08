@@ -2,15 +2,34 @@ $(function() {
 
 	var activeID = null;
 
+	function typeID(id) {
+		switch (id.charAt(0)) {
+			case 'r':
+				return '.ref';
+				break;
+			case 'f':
+				return '.fig';
+				break;
+			case 'd':
+				return '.def';
+				break;
+			default:
+		}
+	}
+
 	function fadeIn(id) {
-		$('.fig.'+id).animate({color: "#313131"}, 500);
-		$('.figt.'+id).fadeIn();
+		if (!id) return;
+		var type = typeID(id);
+		$(type+'.'+id).animate({color: "#313131"}, 500);
+		$(type+'t.'+id).fadeIn();
 		activeID = id;
 	}
 
 	function fadeOut(id) {
-		$('.fig.'+id).animate({color: "#aba9a3"}, 100);
-		$('.figt.'+id).fadeOut();
+		if (!id) return;
+		var type = typeID(id);
+		$(type+'.'+id).animate({color: "#aba9a3"}, 100);
+		$(type+'t.'+id).fadeOut();
 		activeID = null;
 	}
 
@@ -41,8 +60,72 @@ $(function() {
 		var $this = $(this),
 			id = $this.data('id');
 		fadeOut(id);
-		$('aside').animate({width: '380px'});
-		$('article').animate({'margin-left': '20px', opacity: 1});		
+		$('aside').animate({width: '380px'}, 700);
+		$('article').animate({'margin-left': '20px', opacity: 1}, 700);		
+		
+	});
+
+	$('.reft').hover(function(){
+		$(document).off('mousemove');
+	}, function(){
+		var $this = $(this),
+			id = $this.data('id');
+		fadeOut(id);
+	});
+
+
+	$('.ref').hover(function(e) {
+		var $this = $(this),
+			id = $this.data('id');
+
+		$(document).off('mousemove');
+		console.log(id, activeID);
+		if (id !== activeID) fadeOut(activeID);
+		
+		$.data(this, "timer", setTimeout($.proxy(function() {
+			console.log('here?');
+			fadeIn(id);
+  		}, this), 500));
+
+	}, function(e){
+		var $this = $(this),
+			id = $this.data('id'),
+			x = e.pageX,
+			y = e.pageY;
+
+		clearTimeout($.data(this, "timer"));
+
+		if (!activeID) return;
+
+		var mouseLocs = [];
+
+		$(document).mousemove($.proxy(function(e){
+			mouseLocs.push({x: e.pageX, y: e.pageY});
+			if (mouseLocs.length > 3) {
+				mouseLocs.shift();
+			}
+
+			var start = {x: x, y: y},
+				$target = $('.reft.'+id),
+				t_offset = $target.offset(),
+				target = {x: t_offset.left + $target.width() /2, y: t_offset.top + $target.height() / 2}
+
+				loc = mouseLocs[mouseLocs.length - 1],
+				prevLoc = mouseLocs[0];
+
+			if (!loc || !prevLoc) return;
+
+			function angle(a,b) {
+				return Math.acos( (a.x * b.x + a.y * b.y) / (Math.sqrt(Math.pow(a.x,2)+Math.pow(a.y,2)) * Math.sqrt(Math.pow(b.x,2)+Math.pow(b.y,2))) );
+			}
+
+			var a = angle({x: target.x - start.x , y: target.y -start.y}, {x: loc.x - prevLoc.x, y: loc.y - prevLoc.y});
+			if(a > Math.PI/2) {
+				$(document).off("mousemove");
+				fadeOut(id);
+			}
+
+		}, this));
 		
 	});
 

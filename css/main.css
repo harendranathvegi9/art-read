@@ -14,16 +14,29 @@ h1 {
 	letter-spacing: -1px;
 }
 
+h2 {
+	text-transform: uppercase;
+	font-size: 16px;
+}
+
 h5 {
 	font-size: 14px;
 	line-height: 1.2;
 	text-align: right;
 	color: #aba9a3;
 	font-weight: normal;
+	max-width: 360px;
+	float: right;
 }
 
-p {
+article {
 	color: #505050;
+}
+
+.reft p {
+	color: #aba9a3;
+	font-size: 14px;
+	line-height: 1.4;
 }
 
 hr {
@@ -31,22 +44,34 @@ hr {
 	border-top: 5px solid #313131;
 }
 
-.painting {
-	margin-top: 20px;
-}
-
 header {
 	margin-top: 40px;
 }
 
 section {
-	margin-top: 100px;
+	margin-top: 50px;
 }
 
 .ref, .fig {
 	color: #aba9a3;
 }
 
-.figt {
+aside {
+	position: relative;
+	height: 100%;
+}
+
+.figt, .reft {
+	position: absolute;
 	display: none;
+}
+
+footer {
+	margin: 50px 0;
+	color: #aba9a3;
+}
+
+footer hr {
+	border-bottom: none;
+	border-top: 2px solid #aba9a3;
 }
