@@ -58,6 +58,7 @@ section {
 
 aside {
 	position: relative;
+	overflow: visible !important; 
 }
 
 .figt, .reft {
@@ -66,7 +67,8 @@ aside {
 }
 
 footer {
-	margin: 50px 0;
+	margin-top: 150px;
+	margin-bottom: 50px;
 	color: #aba9a3;
 }
 

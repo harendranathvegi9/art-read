@@ -46,12 +46,14 @@ $(function() {
 
 	$('.figt').hover(function(e){
 		$(document).off('mousemove');
+		$('footer').animate({opacity: 0});
 
 		function scale(percent) {
 			var SHIFT = 320;
 			var move = percent * SHIFT;
 			$('article').css('margin-left', Math.floor(20 - move)).css('opacity', 1-.8*percent);
 			$('aside').css('width', Math.floor(380+move));
+
 		}
 
 		$(document).mousemove($.proxy(function(e){
@@ -64,15 +66,16 @@ $(function() {
 		}, this));
 
 	}, function(){
+		$('footer').animate({opacity: 1});
 
 		$(document).off('mousemove');
 		
 
 		var $this = $(this),
 			id = $this.data('id');
-		fadeOut(id);
 		$('aside').animate({width: '380px'}, 700);
-		$('article').animate({'margin-left': '20px', opacity: 1}, 700);		
+		$('article').animate({'margin-left': '20px', opacity: 1}, 700);
+		fadeOut(id);
 		
 	});
 
