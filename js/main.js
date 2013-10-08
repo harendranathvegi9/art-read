@@ -19,9 +19,20 @@ $(function() {
 
 	function fadeIn(id) {
 		if (!id) return;
-		var type = typeID(id);
-		$(type+'.'+id).animate({color: "#313131"}, 500);
-		$(type+'t.'+id).fadeIn();
+		var type = typeID(id),
+			articleOffset = $('article').offset(),
+			articleHeight = $('article').height(),
+			$trigger = $(type+'.'+id),
+			$target = $(type+'t.'+id),
+			triggerOffset = $trigger.offset(),
+			triggerHeight = triggerOffset.top - articleOffset.top,
+			targetHeight = $target.height();
+		var newTrigger = triggerHeight - (targetHeight/2);
+		newTrigger = Math.max(newTrigger, 0);
+		newTrigger = Math.min(newTrigger, articleHeight - targetHeight);
+		$target.css('top', newTrigger);
+		$trigger.animate({color: "#313131"}, 500);
+		$target.fadeIn();
 		activeID = id;
 	}
 
